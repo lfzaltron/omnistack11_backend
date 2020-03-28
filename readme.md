@@ -1,3 +1,6 @@
+Backend da aplicação desenvolvida na 11 semana omnistack da rocketseat. 
+A aplicação é um sistema para ongs cadastrarem ações nas quais precisam de ajuda das pessoas.
+
 ### Run project:
 
 ```
