@@ -1,5 +1,7 @@
 const connection = require('../database/connection');
 
+const { celebrate, Segments, Joi } = require('celebrate');
+
 module.exports = {
     async create(request, response) {
         const { id } = request.body;
@@ -16,5 +18,15 @@ module.exports = {
         }
 
         return response.json(ong);
+    },
+
+    validateCreate() {
+        return celebrate({
+            [Segments.BODY]: Joi.object().keys({
+                id: Joi.string()
+                    .required()
+                    .length(8)
+            })
+        });
     }
 };

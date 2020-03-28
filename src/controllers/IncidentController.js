@@ -1,5 +1,7 @@
 const connection = require('../database/connection');
 
+const { celebrate, Segments, Joi } = require('celebrate');
+
 module.exports = {
     async index(request, response) {
         const { page = 1 } = request.query;
@@ -25,6 +27,14 @@ module.exports = {
         return response.json(incidents);
     },
 
+    validateIndex() {
+        return celebrate({
+            [Segments.QUERY]: Joi.object().keys({
+                page: Joi.number()
+            })
+        });
+    },
+
     async create(request, response) {
         const { title, description, value } = request.body;
         const ong_id = request.headers.authorization;
@@ -37,6 +47,21 @@ module.exports = {
         });
 
         return response.json({ id });
+    },
+
+    validateCreate() {
+        return celebrate({
+            [Segments.BODY]: Joi.object().keys({
+                title: Joi.string().required(),
+                description: Joi.string().required(),
+                value: Joi.number().required()
+            }),
+            [Segments.HEADERS]: Joi.object({
+                authorization: Joi.string()
+                    .required()
+                    .length(8)
+            }).unknown()
+        });
     },
 
     async delete(request, response) {
@@ -59,5 +84,18 @@ module.exports = {
             .delete();
 
         return response.status(204).send();
+    },
+
+    validateDelete() {
+        return celebrate({
+            [Segments.PARAMS]: Joi.object().keys({
+                id: Joi.number().required()
+            }),
+            [Segments.HEADERS]: Joi.object({
+                authorization: Joi.string()
+                    .required()
+                    .length(8)
+            }).unknown()
+        });
     }
 };
