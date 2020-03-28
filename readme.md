@@ -29,3 +29,9 @@ npx knex migrate:rollback
 ```
 npx knex migrate:status
 ```
+
+### Run tests:
+
+```
+npm test
+```
