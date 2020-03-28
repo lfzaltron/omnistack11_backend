@@ -9,6 +9,13 @@ A aplicação é um sistema para ongs cadastrarem ações nas quais precisam de 
 [mobile](https://github.com/lfzaltron/omnistack11_mobile)
 
 
+
+### Install dependencies:
+
+```
+npm install
+```
+
 ### Run project:
 
 ```
